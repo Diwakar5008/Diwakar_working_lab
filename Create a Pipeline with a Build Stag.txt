@@ -1,0 +1,45 @@
+Create a Pipeline with a Build Stage
+
+You are a DevOps Engineer at Globomantics corporation. Your development team has created a new Java app, and you have been tasked with creating a Continuous Integration (CI) pipeline for the application. The build project and the code has already been created, and it is your job to create a new pipeline using the AWS CodePipeline service. This new pipeline will use a source stage that references S3 and a build stage that uses AWS CodeBuild. 
+
+    Log in to the AWS Console using the user name, Password, and Open AWS console button provided by this lab. Make sure your region is Oregon (US West (Oregon) us-west-2) – this is displayed in the upper right corner; change it if you are in a different region.
+
+    At the top of the page in the search box, type in and click on CodePipeline.
+
+    Click the Create pipeline button. 
+
+    For the Pipeline name, enter java-app-pipeline.
+
+    Leave other default options selected, and click the Next button.
+
+    On the Add source stage page, from the Source provider drop-down select Amazon S3.
+
+     Click in the search box under Bucket. You should see a drop-down item for the prefixed codebuild-. Click on it to select it.
+
+    Under S3 object key, enter java-example.zip.
+
+    For Change detection options, select the AWS CodePipeline radio button, and then click the Next button to continue setting up the new pipeline.
+
+    Notice that the Amazon CloudWatch Events (recommended) item was selected by default. CloudWatch Events are superior to the AWS CodePipeline change detection option because the Events will trigger a new pipeline execution more quickly when the S3 source object changes, and they also avoid unnecessary polling. Pluralsight Cloud Labs don't at the time this lab was created support CloudWatch Events, so you needed to instead use AWS CodePipeline.
+
+    On the Add build stage page, click on the drop-down box under Build provider, and select AWS CodeBuild.
+
+    Click in the search box under Project name. You should see a drop-down item for java-app-build-project. Click on it to select it.
+
+    Notice the Add environment variable button. We won't add any environment variables here, but you should know that it's possible to do so here. Using this option in your pipeline allows the CodePipeline service to pass arbitrary environment variables to your builds that run with AWS CodeBuild. 
+
+    Click the Next button.
+
+    On the Add deploy stage page, click the Skip deploy stage button, then click Skip to confirm.
+
+    On the Review page, take a look at all of the options that you have selected and configured for your new pipeline. Scroll down, and then click the Create pipeline button.
+
+After a few seconds, you should be taken to the pipeline view page for the new java-app-pipeline that you have created. You should see a green Success banner at the top of the page that indicates that your pipeline creation was successful. 
+
+Notice that the Source stage of your pipeline is blue, as the execution is in progress. Once that stage completes successfully, it turns green, and then the pipeline proceeds to the Build stage below, which turns blue during its execution.
+
+After a few seconds, the Build stage should also succeed and turn green.
+
+Congratulations! You have created a pipeline with a source stage and a build stage. If you'd like to run another execution of the pipeline, you can click the Release change button. 
+
+If you'd like to see the build commands and the results that were executed during the build run, look inside the Build stage box and click on the Details link (underneath the Succeeded status text).
